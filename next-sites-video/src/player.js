@@ -24,10 +24,20 @@
     const snd = await window.NSA.build();
     S.music = snd.music; S.sfx = snd.sfx;
     status('Pronto.');
-    if (location.protocol !== 'file:') tryLoadLogo('assets/logo.png').catch(() => tryLoadLogo('assets/logo.svg')).catch(() => {});
+    if (location.protocol !== 'file:') {
+      tryLoadLogo('assets/logo.png').catch(() => tryLoadLogo('assets/logo.svg')).catch(() => {});
+      if (!isRender) loadNarration('assets/narracao.mp3', 'narracao.mp3 (ElevenLabs, já posicionada)').catch(() => {});
+    }
     return true;
   })();
 
+  async function loadNarration(src, name) {
+    const r = await fetch(src); if (!r.ok) throw new Error('sem narração');
+    const buf = await ensureAC().decodeAudioData(await r.arrayBuffer());
+    S.narr = buf; S.narrName = name;
+    $('narrInfo').textContent = `${name} · ${buf.duration.toFixed(2).replace('.', ',')} s`;
+    $('narrClear').disabled = false; drawWave();
+  }
   function tryLoadLogo(src) {
     return new Promise((res, rej) => {
       const im = new Image();

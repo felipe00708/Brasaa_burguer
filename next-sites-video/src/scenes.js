@@ -634,7 +634,7 @@
 
   /* ---------- composição ---------- */
   function render(g, t) {
-    t = clamp(t, 0, TL.DUR);
+    t = clamp(TL.Wt(clamp(t, 0, TL.DUR)), 0, TL.DESIGN_DUR); // tempo final -> tempo de projeto
     g.setTransform(1, 0, 0, 1, 0, 0);
     g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; g.filter = 'none';
     g.fillStyle = C.black; g.fillRect(0, 0, W, H);

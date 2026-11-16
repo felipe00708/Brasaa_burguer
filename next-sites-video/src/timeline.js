@@ -4,7 +4,13 @@
   const TL = {
     W: 1080,
     H: 1920,
-    DUR: 35,
+    /* As animações são escritas em "tempo de projeto" (0–35 s). Para encaixar a
+       narração em velocidade natural, a linha do tempo final é esticada por trechos:
+       KNOTS = [[tempo de projeto, tempo no vídeo final], ...]. */
+    DESIGN_DUR: 35,
+    DUR: 48.5,
+    KNOTS: [[0, 0], [6, 7.0], [12, 13.3], [18, 23.2], [20.6, 25.8], [24.45, 33.0], [24.95, 34.3], [26.25, 35.95],
+      [27.55, 37.8], [28.65, 39.3], [29.0, 39.65], [30.3, 40.6], [32.3, 42.6], [35, 48.5]],
     FPS: 30,
 
     COLORS: {
@@ -15,22 +21,24 @@
     },
 
     SCENES: [
-      { id: 1, name: 'Abertura impactante', start: 0, end: 6 },
-      { id: 2, name: 'O mundo digital', start: 6, end: 12 },
-      { id: 3, name: 'O problema', start: 12, end: 18 },
-      { id: 4, name: 'A transformação', start: 18, end: 29 },
-      { id: 5, name: 'Encerramento', start: 29, end: 35 },
+      { id: 1, name: 'Abertura impactante', start: 0, end: 7.0 },
+      { id: 2, name: 'O mundo digital', start: 7.0, end: 13.3 },
+      { id: 3, name: 'O problema', start: 13.3, end: 23.2 },
+      { id: 4, name: 'A transformação', start: 23.2, end: 39.65 },
+      { id: 5, name: 'Encerramento', start: 39.65, end: 48.5 },
     ],
 
-    /* Janelas reservadas para a narração (ElevenLabs). São apenas guias
-       visuais na timeline do player; nenhuma voz é gerada. */
+    /* Narração (ElevenLabs, voz Brian) — posição de cada trecho no vídeo final.
+       Os arquivos estão em assets/narracao/ e a faixa montada em assets/narracao.mp3. */
     VO_CUES: [
-      { start: 0.8, end: 5.6, scene: 1, label: 'O mundo está mudando. E a forma de fazer negócios também.' },
-      { start: 6.4, end: 11.6, scene: 2, label: 'Seus clientes estão conectados. Eles pesquisam. Comparam. Escolhem.' },
-      { start: 12.8, end: 17.4, scene: 3, label: 'E sua empresa? Está sendo encontrada?' },
-      { start: 20.4, end: 24.4, scene: 4, label: 'Sua empresa merece uma presença digital profissional.' },
-      { start: 24.8, end: 28.6, scene: 4, label: 'Mais visibilidade. Mais credibilidade. Mais oportunidades.' },
-      { start: 30.6, end: 34.6, scene: 5, label: 'Sua empresa merece estar na internet. NEXT SITES.' },
+      { start: 0.5, end: 6.56, scene: 1, file: '01.mp3', label: 'Todos os dias, novas oportunidades surgem e o mundo dos negócios não para de evoluir.' },
+      { start: 7.25, end: 13.03, scene: 2, file: '02.mp3', label: 'Hoje, antes de escolher uma empresa, as pessoas pesquisam, procuram informações e comparam.' },
+      { start: 13.5, end: 19.42, scene: 3, file: '03.mp3', label: 'Mas e se, quando procurarem sua empresa, não houver um site para apresentar tudo o que você oferece?' },
+      { start: 19.8, end: 22.82, scene: 3, file: '04.mp3', label: 'Você pode estar perdendo oportunidades sem perceber.' },
+      { start: 23.6, end: 33.92, scene: 4, file: '05.mp3', label: 'Imagine sua empresa com uma presença digital profissional, um espaço próprio para apresentar seus serviços, conquistar confiança e facilitar o contato com seus clientes.' },
+      { start: 34.25, end: 39.03, scene: 4, file: '06.mp3', label: 'Mais visibilidade, mais credibilidade, mais oportunidades.' },
+      { start: 41.0, end: 43.32, scene: 5, file: '07.mp3', label: 'Sua empresa merece estar na internet.' },
+      { start: 43.55, end: 47.03, scene: 5, file: '08.mp3', label: 'NEXT SITES, transformando negócios em presença digital.' },
     ],
 
     /* Momentos-chave usados pelas animações e pelos efeitos sonoros */
@@ -70,10 +78,21 @@
       logo: 30.3,
       wordmark: 30.85,
       headline: 31.25,
-      tagline: 31.95,
-      shine: 33.4,
+      tagline: 33.2,   // sincronizado com "transformando" na narração
+      shine: 34.0,
     },
   };
+
+  /* mapeamento de tempo: T(projeto) -> vídeo final, Wt(vídeo final) -> projeto */
+  const pw = (x, K, a, b) => {
+    if (x <= K[0][a]) return K[0][b] + (x - K[0][a]);
+    for (let i = 1; i < K.length; i++) if (x <= K[i][a]) {
+      const [p, q] = [K[i - 1], K[i]]; return p[b] + ((x - p[a]) / (q[a] - p[a])) * (q[b] - p[b]);
+    }
+    const L = K[K.length - 1]; return L[b] + (x - L[a]);
+  };
+  TL.T = x => pw(x, TL.KNOTS, 0, 1);
+  TL.Wt = x => pw(x, TL.KNOTS, 1, 0);
 
   if (typeof window !== 'undefined') window.NS_TIMELINE = TL;
   if (typeof module !== 'undefined') module.exports = TL;

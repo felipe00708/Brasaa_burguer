@@ -105,62 +105,64 @@
     });
   }
 
-  /* ---------- MÚSICA ---------- */
+  /* ---------- MÚSICA ----------
+     As seções seguem as cenas já reposicionadas (T = tempo de projeto -> vídeo final);
+     dentro de cada seção o andamento é constante (120 bpm). */
   async function renderMusic() {
-    const ctx = new OfflineAudioContext(2, SR * DUR, SR);
+    const T = TL.T;
+    const ctx = new OfflineAudioContext(2, Math.ceil(SR * DUR), SR);
     const A = setup(ctx, 0.85);
-    // Seção A (0–6): drone escuro que cresce
-    drone(A, 0, 6.6, [33, 40, 45], 0.16, 120, 1400);
-    const arpA = [57, 64, 69, 72];
-    for (let i = 0; i < 16; i++) { const t = 3.0 + i * 0.1875; if (t > 5.3) break; pluck(A, t, arpA[i % 4] + 12, 0.025 + i * 0.002, 0.18, 1200 + i * 120, 'triangle', 0.5); }
-
-    // Seção B (6–12): pulso tecnológico 120 bpm
     const b = 0.5;
-    drone(A, 6, 12.4, [33, 45], 0.09, 300, 900);
+    // Seção A: drone escuro que cresce
+    drone(A, 0, T(6.6), [33, 40, 45], 0.16, 120, 1400);
+    const arpA = [57, 64, 69, 72];
+    for (let i = 0; ; i++) { const t = T(3.0) + i * 0.1875; if (t > T(5.3)) break; pluck(A, t, arpA[i % 4] + 12, 0.025 + Math.min(i, 20) * 0.002, 0.18, 1200 + Math.min(i, 20) * 120, 'triangle', 0.5); }
+
+    // Seção B: pulso tecnológico
+    const b0 = T(6), b1 = T(11.75);
+    drone(A, b0, T(12.4), [33, 45], 0.09, 300, 900);
     const arpB = [57, 60, 64, 67, 64, 60, 57, 55];
-    for (let i = 0; i < 46; i++) {
-      const t = 6.0 + i * (b / 2); if (t >= 11.75) break;
-      pluck(A, t, arpB[i % 8], 0.05, 0.2, 900 + (i / 46) * 2600);
-    }
-    for (let i = 0; i < 12; i++) { const t = 6.0 + i * b; if (t >= 11.75) break; kick(A, t, 0.55 + (i / 12) * 0.25); if (t >= 9) hat(A, t + b / 2, 0.08); }
+    for (let i = 0; ; i++) { const t = b0 + i * (b / 2); if (t >= b1) break; pluck(A, t, arpB[i % 8], 0.05, 0.2, 900 + ((t - b0) / (b1 - b0)) * 2600); }
+    for (let i = 0; ; i++) { const t = b0 + i * b; if (t >= b1) break; kick(A, t, 0.55 + ((t - b0) / (b1 - b0)) * 0.25); if (t >= T(9)) hat(A, t + b / 2, 0.08); }
 
-    // Seção C (12–18): tensão — batida de coração, notas suspensas
-    drone(A, 12, 18.0, [33, 34, 45], 0.11, 900, 260);
-    for (let t = 12.5; t < 17.6; t += 1.0) { kick(A, t, 0.6); kick(A, t + 0.22, 0.35); }
-    [12.6, 14.6, 16.6].forEach(t => pluck(A, t, 88, 0.035, 1.4, 4000, 'sine', 0.9));
-    [13.6, 15.6].forEach(t => pluck(A, t, 81, 0.03, 1.4, 3000, 'sine', 0.9));
+    // Seção C: tensão — batida de coração e notas suspensas
+    const c0 = T(12), c1 = T(18);
+    drone(A, c0, c1, [33, 34, 45], 0.11, 900, 260);
+    for (let t = T(12.5); t < c1 - 0.5; t += 1.0) { kick(A, t, 0.6); kick(A, t + 0.22, 0.35); }
+    for (let k = 0, t = T(12.6); t < c1 - 1.2; t += 1.6, k++) pluck(A, t, k % 2 ? 81 : 88, 0.032, 1.4, k % 2 ? 3000 : 4000, 'sine', 0.9);
 
-    // Seção D (18–29): drop — progressão Lá menor, Fá, Dó, Sol
+    // Seção D: drop — Lá menor, Fá, Dó, Sol
     const chords = [[57, 60, 64, 71], [53, 57, 60, 64], [48, 55, 60, 64], [55, 59, 62, 67]];
     const roots = [33, 29, 36, 31];
-    const start = 18.0, bar = 2.0;
-    for (let k = 0; k < 6; k++) {
-      const t0 = start + k * bar; if (t0 >= 28.5) break;
-      const ci = k % 4;
-      pad(A, t0, Math.min(t0 + bar, 28.5) - 0.05, chords[ci].map(m => m - 12), 0.035, 1400 + k * 300, 0.25, 0.4);
+    const start = T(18), end = T(28.5), bar = 2.0, full = T(19.9);
+    for (let k = 0; ; k++) {
+      const t0 = start + k * bar; if (t0 >= end) break;
+      pad(A, t0, Math.min(t0 + bar, end) - 0.05, chords[k % 4].map(m => m - 12), 0.035, Math.min(3000, 1400 + k * 200), 0.25, 0.4);
     }
     for (let i = 0; ; i++) {
-      const t = start + i * b; if (t >= 28.45) break;
+      const t = start + i * b; if (t >= end - 0.05) break;
       const ci = Math.floor((t - start) / bar) % 4;
-      if (t >= 18.5) kick(A, t, 0.95);
-      if (i % 2 === 1 && t >= 19.9) clap(A, t, 0.3);
-      if (t >= 19.9) { hat(A, t + b / 2, 0.1, i % 4 === 3); hat(A, t + b / 4, 0.05); hat(A, t + (3 * b) / 4, 0.05); }
-      if (t >= 18.5) { bass(A, t, roots[ci] + 12, 0.2, 0.2); bass(A, t + b / 2, roots[ci] + 12, 0.17, 0.18); }
+      if (t >= start + 0.5) kick(A, t, 0.95);
+      if (i % 2 === 1 && t >= full) clap(A, t, 0.3);
+      if (t >= full) { hat(A, t + b / 2, 0.1, i % 4 === 3); hat(A, t + b / 4, 0.05); hat(A, t + (3 * b) / 4, 0.05); }
+      if (t >= start + 0.5) { bass(A, t, roots[ci] + 12, 0.2, 0.2); bass(A, t + b / 2, roots[ci] + 12, 0.17, 0.18); }
     }
     for (let i = 0; ; i++) {
-      const t = 19.9 + i * (b / 4); if (t >= 28.45) break;
+      const t = start + i * (b / 4); if (t >= end - 0.05) break;
+      if (t < full) continue;
       const ci = Math.floor((t - start) / bar) % 4, ch = chords[ci];
       const note = ch[i % 4] + (i % 8 >= 4 ? 12 : 0);
-      const bright = t > CUE.benefits[0] ? 5200 : 3200;
-      pluck(A, t, note, 0.032, 0.14, bright, 'square', 0.3);
+      pluck(A, t, note, 0.032, 0.14, t > T(CUE.benefits[0]) ? 5200 : 3200, 'square', 0.3);
     }
-    // Seção E (29–35): impacto final e cauda
-    pad(A, 30.3, 34.0, [45, 52, 57, 59, 64], 0.06, 2200, 0.08, 1.2);
-    pad(A, 30.3, 34.0, [69, 76], 0.02, 5000, 0.4, 1.2);
-    kick(A, 30.3, 1.1);
-    bass(A, 30.3, 33, 0.3, 1.8);
+    // Seção E: impacto final e cauda
+    const e0 = T(30.3), eEnd = DUR - 1.3;
+    pad(A, e0, eEnd, [45, 52, 57, 59, 64], 0.06, 2200, 0.08, 1.2);
+    pad(A, e0, eEnd, [69, 76], 0.02, 5000, 0.4, 1.2);
+    kick(A, e0, 1.1);
+    bass(A, e0, 33, 0.3, 1.8);
     const arpE = [69, 76, 81, 83, 76, 81];
-    for (let i = 0; i < 26; i++) { const t = 30.9 + i * 0.1875; if (t > 34.4) break; pluck(A, t, arpE[i % 6], 0.03 * (1 - i / 30), 0.3, 3000, 'triangle', 0.7); }
+    const nE = Math.floor((eEnd - 0.6 - e0) / 0.1875);
+    for (let i = 0; i < nE; i++) pluck(A, e0 + 0.6 + i * 0.1875, arpE[i % 6], 0.03 * (1 - i / (nE + 4)), 0.3, 3000, 'triangle', 0.7);
     return ctx.startRendering();
   }
 
@@ -225,7 +227,13 @@
   }
 
   async function renderSfx() {
-    const ctx = new OfflineAudioContext(2, SR * DUR, SR);
+    // os efeitos são marcados em tempo de projeto e reposicionados no vídeo final (sem alterar a duração de cada som)
+    const T = TL.T;
+    const whoosh = (A, t, ...r) => RAW.whoosh(A, T(t), ...r), impact = (A, t, ...r) => RAW.impact(A, T(t), ...r);
+    const riser = (A, t0, t1, ...r) => RAW.riser(A, T(t0), T(t1), ...r), blip = (A, t, ...r) => RAW.blip(A, T(t), ...r);
+    const tick = (A, t, ...r) => RAW.tick(A, T(t), ...r), shimmer = (A, t, ...r) => RAW.shimmer(A, T(t), ...r);
+    const glitch = (A, t, ...r) => RAW.glitch(A, T(t), ...r), textHit = (A, t, ...r) => RAW.textHit(A, T(t), ...r);
+    const ctx = new OfflineAudioContext(2, Math.ceil(SR * DUR), SR);
     const A = setup(ctx, 0.9);
     // Cena 1
     whoosh(A, CUE.line1 - 0.1, 1.0, 0.25, 200, 3000);
@@ -286,6 +294,8 @@
     whoosh(A, CUE.shine, 1.0, 0.06, 2000, 8000, -0.5, 0.5);
     return ctx.startRendering();
   }
+
+  const RAW = { whoosh, impact, riser, blip, tick, shimmer, glitch, textHit };
 
   async function build() {
     const [music, sfx] = await Promise.all([renderMusic(), renderSfx()]);

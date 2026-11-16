@@ -1,4 +1,4 @@
-# NEXT SITES — Vídeo publicitário (9:16 · 1080×1920 · 35 s)
+# NEXT SITES — Vídeo publicitário (9:16 · 1080×1920 · 48,5 s com narração)
 
 Comercial cinematográfico 100% programado (Canvas 2D + projeção 3D em perspectiva + Web Audio).
 Toda a animação é **determinística**: cada quadro é uma função do tempo, por isso o mesmo projeto
@@ -20,34 +20,34 @@ pela interface do Instagram/Reels.
 
 ## Narração (ElevenLabs)
 
-O projeto **não gera voz, diálogos nem legendas**. A narração entra como uma faixa separada:
+A narração já está integrada: os 8 trechos estão em `assets/narracao/01.mp3 … 08.mp3` e a faixa
+montada (cada trecho na posição certa) em `assets/narracao.mp3`. O player carrega essa faixa
+automaticamente e o render a mixa no MP4 final, abaixando a trilha sob a voz.
 
-1. No painel **Narração**, carregue o MP3/WAV.
-2. Ajuste **Início em** (deslocamento, de −5 s a +10 s) olhando a forma de onda na timeline.
-3. **Trilha sob voz** define quanto a música abaixa automaticamente enquanto há fala.
-4. **Exportar MP4** já sai com a narração mixada.
+Para encaixar a voz em velocidade natural (≈44 s de fala), a linha do tempo foi esticada por trechos
+(`KNOTS` em `src/timeline.js`) e o vídeo passou a ter **48,5 s**. As animações continuam as mesmas:
+apenas o tempo de cada trecho foi ajustado, e a música foi rearranjada nas novas seções.
 
-As janelas reservadas para a voz aparecem na timeline (faixa tracejada) e estão em
-`src/timeline.js` (`VO_CUES`):
-
-| Tempo | Cena | Texto em tela |
+| Vídeo | Cena | Narração |
 |---|---|---|
-| 0,8–5,6 s | 1 · Abertura | O mundo está mudando. E a forma de fazer negócios também. |
-| 6,4–11,6 s | 2 · Mundo digital | Seus clientes estão conectados. Eles pesquisam. Comparam. Escolhem. |
-| 12,8–17,4 s | 3 · Problema | E sua empresa? Está sendo encontrada? |
-| 20,4–24,4 s | 4 · Transformação | Sua empresa merece uma presença digital profissional. |
-| 24,8–28,6 s | 4 · Benefícios | Mais visibilidade. Mais credibilidade. Mais oportunidades. |
-| 30,6–34,6 s | 5 · Encerramento | Sua empresa merece estar na internet. NEXT SITES. |
+| 0,5 s | 1 · Abertura | Todos os dias, novas oportunidades surgem e o mundo dos negócios não para de evoluir. |
+| 7,25 s | 2 · Mundo digital | Hoje, antes de escolher uma empresa, as pessoas pesquisam, procuram informações e comparam. |
+| 13,5 s | 3 · Problema | Mas e se, quando procurarem sua empresa, não houver um site para apresentar tudo o que você oferece? |
+| 19,8 s | 3 · Problema | Você pode estar perdendo oportunidades sem perceber. |
+| 23,6 s | 4 · Transformação | Imagine sua empresa com uma presença digital profissional… |
+| 34,25 s | 4 · Benefícios | Mais visibilidade, mais credibilidade, mais oportunidades. (cada benefício entra na palavra) |
+| 41,0 s | 5 · Encerramento | Sua empresa merece estar na internet. |
+| 43,55 s | 5 · Encerramento | NEXT SITES, transformando negócios em presença digital. |
 
-Se a narração ficar mais longa ou mais curta, todos os tempos das animações e dos efeitos sonoros
-estão centralizados em `CUE`, no mesmo arquivo; alterar ali ressincroniza vídeo e áudio juntos.
+Para trocar a narração: substitua os arquivos e as posições em `VO_CUES`, ou carregue outro arquivo
+pelo painel **Narração** do player (com ajuste de início), ou use `node render.cjs --narration voz.mp3`.
 
 ## Logo oficial
 
-O emblema atual é **provisório** (nenhum arquivo de logo foi fornecido). Para usar a logo oficial
-com o desenho e as cores originais:
+A logo oficial está em `assets/logo.png` (recortada com fundo transparente) e é usada no
+encerramento e na traseira do celular. Para trocar:
 
-- salve como `assets/logo.png` (fundo transparente) — carregada automaticamente; ou
+- substitua `assets/logo.png` (fundo transparente) — carregada automaticamente; ou
 - use o botão **Carregar logo** no player; ou
 - no render automático: `node render.cjs --logo caminho/da/logo.png`.
 
@@ -63,14 +63,15 @@ gravação em tempo real.
 npm i playwright && npx playwright install chromium   # uma vez; requer ffmpeg instalado
 node render.cjs                                      # 30 fps
 node render.cjs --fps 60
-node render.cjs --narration voz.mp3 --offset 0.3 --duck 0.45
+node render.cjs --narration voz.mp3 --offset 0.3 --duck 0.45   # outra narração
+node render.cjs --sem-narracao
 ```
 
 Saída em `out/`:
 
-- `next-sites.mp4` — vídeo com trilha + efeitos
+- `next-sites.mp4` — **versão final**: narração + trilha + efeitos
+- `next-sites-sem-narracao.mp4` — só trilha + efeitos
 - `next-sites-sem-audio.mp4` — só o vídeo (para montar no CapCut/Premiere)
-- `next-sites-com-narracao.mp4` — quando `--narration` é usado
 - `stems/trilha.wav`, `stems/efeitos.wav`, `stems/trilha+efeitos.wav` — faixas separadas
 
 ## Estrutura

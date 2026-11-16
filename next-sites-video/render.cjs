@@ -3,10 +3,11 @@
    codifica em MP4 H.264 1080x1920 com ffmpeg.
 
    Uso:
-     node render.cjs                         -> out/next-sites.mp4 (trilha + efeitos), stems WAV e versão sem áudio
+     node render.cjs                         -> out/next-sites.mp4 (narração + trilha + efeitos), versão sem narração, sem áudio e stems
      node render.cjs --fps 60
      node render.cjs --narration voz.mp3 --offset 0.4 [--duck 0.45]
-                                             -> também gera out/next-sites-com-narracao.mp4
+                                             -> usa outro arquivo de narração (padrão: assets/narracao.mp3)
+     node render.cjs --sem-narracao          -> só trilha + efeitos
      node render.cjs --logo minha-logo.png   -> usa a logo oficial no encerramento
 
    Requisitos: Node 18+, ffmpeg no PATH e Playwright (npm i playwright && npx playwright install chromium). */
@@ -19,13 +20,14 @@ const { chromium } = require('playwright');
 const args = process.argv.slice(2);
 const opt = (name, def) => { const i = args.indexOf('--' + name); return i >= 0 ? args[i + 1] : def; };
 const FPS = +opt('fps', 30);
-const NARR = opt('narration', null);
+const DEFAULT_NARR = path.join(__dirname, 'assets', 'narracao.mp3');
+const NARR = args.includes('--sem-narracao') ? null : opt('narration', fs.existsSync(DEFAULT_NARR) ? DEFAULT_NARR : null);
 const OFFSET = +opt('offset', 0);
 const DUCK = +opt('duck', 0.45);
 const LOGO = opt('logo', null);
 const OUT = path.resolve(opt('out', path.join(__dirname, 'out')));
 const ROOT = __dirname;
-const DUR = 35;
+let DUR = 35;
 
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.woff2': 'font/woff2', '.png': 'image/png', '.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.webp': 'image/webp' };
 function serve() {
@@ -64,6 +66,7 @@ function run(cmd, a, input) {
   await page.goto(url);
   await page.waitForFunction(() => window.NS && window.NS.ready);
   await page.evaluate(() => window.NS.ready);
+  DUR = await page.evaluate(() => window.NS_TIMELINE.DUR);
   if (LOGO) await page.waitForTimeout(500);
 
   console.log('• Exportando trilha e efeitos (WAV)…');
@@ -93,7 +96,7 @@ function run(cmd, a, input) {
   console.log('• Montando MP4 com trilha + efeitos…');
   const mixWav = path.join(OUT, 'stems', 'trilha+efeitos.wav');
   await run('ffmpeg', ['-y', '-loglevel', 'error', '-i', videoOnly, '-i', mixWav, '-map', '0:v', '-map', '1:a', '-c:v', 'copy',
-    '-c:a', 'aac', '-b:a', '256k', '-shortest', '-movflags', '+faststart', path.join(OUT, 'next-sites.mp4')]);
+    '-c:a', 'aac', '-b:a', '256k', '-shortest', '-movflags', '+faststart', path.join(OUT, NARR ? 'next-sites-sem-narracao.mp4' : 'next-sites.mp4')]);
 
   if (NARR) {
     console.log('• Mixando narração (com abaixamento automático da trilha)…');
@@ -106,7 +109,8 @@ function run(cmd, a, input) {
     ].join(';');
     await run('ffmpeg', ['-y', '-loglevel', 'error', '-i', videoOnly, '-i', mixWav, '-i', path.resolve(NARR), '-filter_complex', fc,
       '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k', '-t', String(DUR), '-movflags', '+faststart',
-      path.join(OUT, 'next-sites-com-narracao.mp4')]);
+      path.join(OUT, 'next-sites.mp4')]);
+    fs.copyFileSync(path.resolve(NARR), path.join(OUT, 'stems', 'narracao' + path.extname(NARR)));
   }
   console.log('✓ Pronto em', OUT);
 })().catch(e => { console.error(e); process.exit(1); });
