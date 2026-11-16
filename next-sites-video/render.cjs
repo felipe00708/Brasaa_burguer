@@ -101,11 +101,13 @@ function run(cmd, a, input) {
   if (NARR) {
     console.log('• Mixando narração (com abaixamento automático da trilha)…');
     const ms = Math.max(0, Math.round(OFFSET * 1000)), trim = Math.max(0, -OFFSET);
-    const thr = (0.02 + (1 - DUCK) * 0.03).toFixed(3), ratio = (2 + (1 - DUCK) * 10).toFixed(1);
+    const thr = (0.012 + DUCK * 0.04).toFixed(3), ratio = (1.5 + (1 - DUCK) * 2.7).toFixed(2);
+    const NVOL = +opt('narration-volume', 1.9), BEDVOL = +opt('bed-volume', 0.8);
     const fc = [
-      `[2:a]atrim=start=${trim},asetpts=PTS-STARTPTS,adelay=${ms}|${ms},aformat=channel_layouts=stereo,apad,asplit=2[n1][n2]`,
-      `[1:a][n1]sidechaincompress=threshold=${thr}:ratio=${ratio}:attack=15:release=450[bed]`,
-      `[bed][n2]amix=inputs=2:normalize=0:duration=first[a]`,
+      `[2:a]atrim=start=${trim},asetpts=PTS-STARTPTS,adelay=${ms}|${ms},aformat=channel_layouts=stereo:sample_rates=48000,volume=${NVOL},apad,asplit=2[n1][n2]`,
+      `[1:a]volume=${BEDVOL}[b0]`,
+      `[b0][n1]sidechaincompress=threshold=${thr}:ratio=${ratio}:attack=20:release=500:makeup=1[bed]`,
+      `[bed][n2]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.95:level=disabled[a]`,
     ].join(';');
     await run('ffmpeg', ['-y', '-loglevel', 'error', '-i', videoOnly, '-i', mixWav, '-i', path.resolve(NARR), '-filter_complex', fc,
       '-map', '0:v', '-map', '[a]', '-c:v', 'copy', '-c:a', 'aac', '-b:a', '256k', '-t', String(DUR), '-movflags', '+faststart',
