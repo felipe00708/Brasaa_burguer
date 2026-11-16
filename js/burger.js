@@ -177,8 +177,8 @@
     for (x = 580; x >= 40; x -= 24) pts.push([x, 106 + r() * 9]);
     pts.push([14, 94], [6, 60], [18, 26]);
     var shape = smooth(pts), tex = '';
-    for (var i = 0; i < 260; i++) {
-      var tx = 18 + r() * 584, ty = 18 + r() * 92, rr = 1 + r() * 3.6;
+    for (var i = 0; i < 170; i++) {
+      var tx = 18 + r() * 584, ty = 18 + r() * 92, rr = 1.3 + r() * 3.8;
       var c = r() > 0.55 ? '#2A0F05' : (r() > 0.5 ? '#8B4A22' : '#5C2A12');
       tex += '<circle cx="' + f(tx) + '" cy="' + f(ty) + '" r="' + f(rr) + '" fill="' + c + '" opacity="' + f(0.35 + r() * 0.5) + '"/>';
     }
@@ -246,12 +246,12 @@
   var LAYERS = [
     { k: 'shadow',    vb: [700, 120], x: -50, y: 528, z: -60, e: 30,   fl: 0, rot: 0 },
     { k: 'bottomBun', vb: [600, 130], x: 0,   y: 444, z: -30, e: 96,   fl: 5, rot: -2,  label: 'Brioche tostado na manteiga' },
-    { k: 'lettuce',   vb: [640, 90],  x: -20, y: 420, z: -10, e: 54,   fl: 7, rot: 3,   label: 'Alface americana crocante' },
-    { k: 'patty',     vb: [620, 120], x: -10, y: 334, z: 0,   e: 14,   fl: 6, rot: -1.5,label: 'Blend Angus 180g na brasa' },
-    { k: 'cheese',    vb: [640, 150], x: -20, y: 318, z: 12,  e: -24,  fl: 7, rot: 2,   label: 'Cheddar inglês derretido' },
-    { k: 'bacon',     vb: [620, 70],  x: -10, y: 290, z: 24,  e: -62,  fl: 8, rot: -3,  label: 'Bacon defumado na lenha' },
-    { k: 'tomato',    vb: [620, 64],  x: -10, y: 268, z: 36,  e: -100, fl: 8, rot: 2.5, label: 'Tomate italiano maduro' },
-    { k: 'onion',     vb: [620, 44],  x: -10, y: 256, z: 46,  e: -134, fl: 9, rot: -2,  label: 'Cebola roxa fatiada' },
+    { k: 'lettuce',   vb: [640, 90],  x: -20, y: 420, z: -10, e: 54,   fl: 7, rot: 3,   label: 'Alface crocante' },
+    { k: 'patty',     vb: [620, 120], x: -10, y: 334, z: 0,   e: 14,   fl: 6, rot: -1.5,label: 'Blend da casa 180g' },
+    { k: 'cheese',    vb: [640, 150], x: -20, y: 318, z: 12,  e: -24,  fl: 7, rot: 2,   label: 'Cheddar derretido' },
+    { k: 'bacon',     vb: [620, 70],  x: -10, y: 290, z: 24,  e: -62,  fl: 8, rot: -3,  label: 'Bacon defumado' },
+    { k: 'tomato',    vb: [620, 64],  x: -10, y: 268, z: 36,  e: -100, fl: 8, rot: 2.5, label: 'Tomate maduro' },
+    { k: 'onion',     vb: [620, 44],  x: -10, y: 256, z: 46,  e: -134, fl: 9, rot: -2,  label: 'Cebola roxa' },
     { k: 'topBun',    vb: [600, 240], x: 0,   y: 34,  z: 60,  e: -186, fl: 6, rot: 3,   label: 'Brioche com gergelim' }
   ];
 
@@ -264,7 +264,7 @@
 
   function Burger(root, opts) {
     this.root = root;
-    this.o = Object.assign({ labels: false, autoCycle: false, startExploded: 0, spread: 1, drop: 0, varTarget: null }, opts || {});
+    this.o = Object.assign({ labels: false, autoCycle: false, startExploded: 0, spread: 1, drop: 0, varEls: null }, opts || {});
     this.explode = this.o.startExploded;   // current
     this.target = this.o.startExploded;    // manual target
     this.cycle = 0;                        // auto-cycle contribution
@@ -303,8 +303,10 @@
     });
     root.appendChild(stage);
     this.stage = stage;
+    this.varEls = Array.prototype.slice.call(root.querySelectorAll('.b-label')).concat(this.o.varEls || []);
     this.measure();
-    this._onResize = function () { self.measure(); };
+    var rt;
+    this._onResize = function () { clearTimeout(rt); rt = setTimeout(function () { self.measure(); }, 120); };
     global.addEventListener('resize', this._onResize, { passive: true });
     this.render(performance.now());
   };
@@ -339,8 +341,15 @@
     p.y += (p.ty - p.y) * 0.07;
 
     this.stage.style.transform = 'rotateX(' + f(8 - p.y * 9 + E * 6) + 'deg) rotateY(' + f(p.x * 14) + 'deg)';
-    this.root.style.setProperty('--explode', E.toFixed(3));
-    if (this.o.varTarget) this.o.varTarget.style.setProperty('--explode', E.toFixed(3));
+    // Only touch the inherited custom property when it really changes:
+    // updating it invalidates styles for the whole SVG subtree.
+    // and only on the few elements that read it (labels + optional extras),
+    // never on a container: that would restyle thousands of SVG nodes.
+    var eStr = E.toFixed(3);
+    if (eStr !== this._eStr) {
+      this._eStr = eStr;
+      for (var v = 0; v < this.varEls.length; v++) this.varEls[v].style.setProperty('--explode', eStr);
+    }
 
     for (var i = 0; i < this.layers.length; i++) {
       var o = this.layers[i], L = o.L;

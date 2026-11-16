@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Após publicar, informe o endereço final do sitemap:
+# Sitemap: https://www.seudominio.com.br/sitemap.xml

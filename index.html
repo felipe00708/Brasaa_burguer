@@ -3,22 +3,73 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>BRASA BURGER — O sabor que acende sua vontade</title>
-  <meta name="description" content="BRASA BURGER: smash burgers artesanais feitos na brasa, com blend Angus, cheddar inglês e brioche de fermentação natural.">
+
+  <!-- SEO -->
+  <title>BRASA BURGER | Hambúrguer artesanal feito na brasa</title>
+  <meta name="description" content="Smash burgers artesanais feitos no fogo: blend fresco porcionado à mão, cheddar derretido e brioche tostado na manteiga. Faça seu pedido pelo WhatsApp.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="BRASA BURGER">
   <meta name="theme-color" content="#191313">
-  <meta property="og:title" content="BRASA BURGER">
-  <meta property="og:description" content="O sabor que acende sua vontade.">
+  <meta name="color-scheme" content="dark">
+  <meta name="format-detection" content="telephone=no">
+  <!-- Após publicar, descomente e informe o endereço final do site:
+  <link rel="canonical" href="https://www.seudominio.com.br/"> -->
+
+  <!-- Compartilhamento (WhatsApp, Instagram, Facebook, LinkedIn, X) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="BRASA BURGER">
+  <meta property="og:title" content="BRASA BURGER | O sabor que acende sua vontade">
+  <meta property="og:description" content="Smash burgers artesanais feitos no fogo. Blend fresco, cheddar derretido e brioche tostado na manteiga.">
+  <meta property="og:image" content="assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="BRASA BURGER — O sabor que acende sua vontade">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BRASA BURGER | O sabor que acende sua vontade">
+  <meta name="twitter:description" content="Smash burgers artesanais feitos no fogo.">
+  <meta name="twitter:image" content="assets/og-image.jpg">
+
+  <!-- Ícones -->
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@1,9..144,500..700&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/burger.css">
   <link rel="stylesheet" href="css/loader.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/sections.css">
+  <noscript><style>
+    .loader { display: none !important; }
+    html.is-loading body { overflow: auto; }
+    html.is-loading .header { transform: none; }
+    [data-hero], .reveal, .shot.reveal { opacity: 1 !important; transform: none !important; }
+    .hero__line > [data-hero] { transform: none !important; }
+    .shot::after { display: none; }
+  </style></noscript>
+
+  <!-- Dados estruturados (complementados automaticamente com js/config.js) -->
+  <script type="application/ld+json" id="ld-restaurant">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "BRASA BURGER",
+    "description": "Hamburgueria artesanal especializada em smash burgers feitos na brasa.",
+    "servesCuisine": ["Hambúrguer", "Hambúrguer artesanal", "Smash burger"],
+    "image": "assets/og-image.jpg",
+    "logo": "assets/icon-512.png"
+  }
+  </script>
 </head>
 <body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
   <!-- Símbolos reutilizáveis -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -37,11 +88,14 @@
     <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.2 1.3-6.6L2.5 9.3l6.6-.8z" fill="currentColor"/></symbol>
     <symbol id="i-whats" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.4-.7-2-1.3-.6-.5-1-1.1-1.4-1.8-.1-.2 0-.4.1-.5l.4-.5.3-.4v-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.6.6-.9 1.4-.9 2.2.1 1 .5 1.9 1.1 2.7 1.1 1.6 2.5 2.9 4.2 3.7.5.2.9.4 1.4.5.5.2 1.1.2 1.6.1.6-.1 1.2-.5 1.5-1 .2-.4.2-.8.1-1.2l-.2-.2z"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-zoom" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   </svg>
 
   <!-- ================================================================ LOADER -->
   <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Carregando BRASA BURGER">
     <div class="loader__bg"></div>
+    <canvas class="loader__embers" id="loaderEmbers" aria-hidden="true"></canvas>
     <div class="loader__grain" aria-hidden="true"></div>
     <div class="loader__inner">
       <div class="loader__logo">
@@ -79,18 +133,18 @@
           <li><a href="#experiencia" class="nav__link" data-i="5"><span>Experiência</span></a></li>
         </ul>
         <div class="nav__mobile-foot">
-          <a class="btn btn--primary" data-order href="#"><svg><use href="#i-whats"/></svg>FAÇA SEU PEDIDO</a>
+          <a class="btn btn--primary" data-order href="#"><svg aria-hidden="true"><use href="#i-whats"/></svg>FAÇA SEU PEDIDO</a>
           <p data-contact="hours"></p>
         </div>
       </nav>
-      <a class="btn btn--primary btn--sm header__cta" data-order href="#"><svg><use href="#i-whats"/></svg><span>FAÇA SEU PEDIDO</span></a>
+      <a class="btn btn--primary btn--sm header__cta" data-order href="#"><svg aria-hidden="true"><use href="#i-whats"/></svg><span>FAÇA SEU PEDIDO</span></a>
       <button class="burger-btn" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
 
-  <main>
+  <main id="conteudo">
     <!-- ================================================================ HERO -->
     <section class="hero" id="inicio" aria-label="Início">
       <canvas class="hero__embers" id="embers" aria-hidden="true"></canvas>
@@ -99,41 +153,38 @@
 
       <div class="container hero__grid">
         <div class="hero__content">
-          <p class="eyebrow hero__eyebrow" data-hero="1"><span class="pulse-dot"></span>Smash burger na brasa · desde 2012</p>
+          <p class="eyebrow hero__eyebrow" data-hero="1"><span class="pulse-dot"></span>Smash burger artesanal · feito no fogo</p>
           <h1 class="hero__title">
             <span class="hero__line"><span data-hero="2">O SABOR</span></span>
             <span class="hero__line"><span data-hero="3">QUE <em>ACENDE</em></span></span>
             <span class="hero__line"><span data-hero="4">SUA VONTADE.</span></span>
           </h1>
-          <p class="hero__lead" data-hero="5">Blend Angus selado a 280°C, cheddar que escorre devagar e brioche tostado na manteiga. Hambúrguer de verdade, feito no fogo e servido no ponto.</p>
+          <p class="hero__lead" data-hero="5">Carne fresca prensada na chapa bem quente, cheddar escorrendo pelas bordas e brioche tostado na manteiga. Sem atalhos e sem pressa: só fogo, técnica e ingrediente de verdade.</p>
           <div class="hero__actions" data-hero="6">
-            <a class="btn btn--primary btn--lg magnetic" data-order href="#"><svg><use href="#i-whats"/></svg><span>FAÇA SEU PEDIDO</span></a>
-            <a class="btn btn--ghost btn--lg" href="#historia"><span>CONHEÇA NOSSA HISTÓRIA</span><svg><use href="#i-arrow"/></svg></a>
+            <a class="btn btn--primary btn--lg magnetic" data-order href="#"><svg aria-hidden="true"><use href="#i-whats"/></svg><span>FAÇA SEU PEDIDO</span></a>
+            <a class="btn btn--ghost btn--lg" href="#historia"><span>CONHEÇA NOSSA HISTÓRIA</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
-          <div class="hero__meta" data-hero="7">
-            <div class="hero__rating">
-              <span class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
-              <span><b>4,9</b> · +12 mil avaliações</span>
-            </div>
-            <span class="hero__sep"></span>
-            <span class="hero__delivery">Delivery em até <b>35 min</b></span>
-          </div>
+          <ul class="hero__meta" data-hero="7">
+            <li><span class="hero__check" aria-hidden="true"></span>Carne fresca, porcionada à mão</li>
+            <li class="hero__sep" aria-hidden="true"></li>
+            <li><span class="hero__check" aria-hidden="true"></span>Pedido rápido pelo WhatsApp</li>
+          </ul>
         </div>
 
-        <div class="hero__visual" data-hero="8">
+        <div class="hero__visual is-intro" data-hero="8">
           <div class="hero__halo" aria-hidden="true"></div>
           <div class="hero__ring" aria-hidden="true"></div>
-          <div class="hero__burger" data-burger="hero" role="img" aria-label="Hambúrguer BRASA com brioche, cheddar derretido, blend Angus, bacon, tomate, cebola roxa e alface"></div>
+          <div class="hero__burger" data-burger="hero" role="img" aria-label="Hambúrguer BRASA com brioche, cheddar derretido, blend bovino, bacon, tomate, cebola roxa e alface"></div>
           <div class="hero__particles" aria-hidden="true">
             <i class="seed" style="--x:12%;--y:18%;--d:0s"></i><i class="seed" style="--x:84%;--y:12%;--d:-2s"></i>
             <i class="seed" style="--x:92%;--y:56%;--d:-4s"></i><i class="seed" style="--x:6%;--y:62%;--d:-1s"></i>
             <i class="leaf" style="--x:4%;--y:40%;--d:-3s"></i><i class="leaf" style="--x:90%;--y:80%;--d:-5s"></i>
             <i class="flake" style="--x:20%;--y:85%;--d:-1.5s"></i><i class="flake" style="--x:75%;--y:4%;--d:-3.5s"></i>
           </div>
-          <div class="hero__badge hero__badge--a"><b>180g</b><span>Blend Angus</span></div>
-          <div class="hero__badge hero__badge--b"><svg><use href="#i-flame"/></svg><span>Na brasa<br>a 280°C</span></div>
+          <div class="hero__badge hero__badge--a" aria-hidden="true"><b>180g</b><span>Blend<br>da casa</span></div>
+          <div class="hero__badge hero__badge--b" aria-hidden="true"><svg><use href="#i-flame"/></svg><span>Na chapa<br>a 280°C</span></div>
           <button class="hero__toggle" id="heroToggle" type="button" aria-pressed="false">
-            <span class="hero__toggle-icon"><i></i><i></i><i></i></span><span class="hero__toggle-text">Ver por dentro</span>
+            <span class="hero__toggle-icon" aria-hidden="true"><i></i><i></i><i></i></span><span class="hero__toggle-text">Ver por dentro</span>
           </button>
         </div>
       </div>
@@ -144,25 +195,25 @@
     <!-- ================================================================ MARQUEE -->
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track">
-        <span>FEITO NO FOGO</span><svg><use href="#i-flame"/></svg><span>BLEND ANGUS</span><svg><use href="#i-flame"/></svg><span>CHEDDAR QUE ESCORRE</span><svg><use href="#i-flame"/></svg><span>BRIOCHE ARTESANAL</span><svg><use href="#i-flame"/></svg><span>SMASH NA CHAPA</span><svg><use href="#i-flame"/></svg>
-        <span>FEITO NO FOGO</span><svg><use href="#i-flame"/></svg><span>BLEND ANGUS</span><svg><use href="#i-flame"/></svg><span>CHEDDAR QUE ESCORRE</span><svg><use href="#i-flame"/></svg><span>BRIOCHE ARTESANAL</span><svg><use href="#i-flame"/></svg><span>SMASH NA CHAPA</span><svg><use href="#i-flame"/></svg>
+        <span>FEITO NO FOGO</span><svg><use href="#i-flame"/></svg><span>CARNE FRESCA</span><svg><use href="#i-flame"/></svg><span>CHEDDAR QUE ESCORRE</span><svg><use href="#i-flame"/></svg><span>BRIOCHE NA MANTEIGA</span><svg><use href="#i-flame"/></svg><span>SMASH NA CHAPA</span><svg><use href="#i-flame"/></svg>
+        <span>FEITO NO FOGO</span><svg><use href="#i-flame"/></svg><span>CARNE FRESCA</span><svg><use href="#i-flame"/></svg><span>CHEDDAR QUE ESCORRE</span><svg><use href="#i-flame"/></svg><span>BRIOCHE NA MANTEIGA</span><svg><use href="#i-flame"/></svg><span>SMASH NA CHAPA</span><svg><use href="#i-flame"/></svg>
       </div>
     </div>
 
     <!-- ================================================================ HISTÓRIA -->
     <section class="section story" id="historia">
       <div class="container story__grid">
-        <div class="story__visual reveal">
-          <div class="seal" aria-hidden="true">
+        <div class="story__visual reveal" aria-hidden="true">
+          <div class="seal">
             <svg class="seal__text" viewBox="0 0 200 200">
               <defs><path id="sealPath" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0"/></defs>
-              <text><textPath href="#sealPath">BRASA BURGER • DESDE 2012 • FEITO NO FOGO •</textPath></text>
+              <text><textPath href="#sealPath">BRASA BURGER • FEITO NO FOGO • ARTESANAL •</textPath></text>
             </svg>
             <svg class="seal__flame"><use href="#i-flame"/></svg>
           </div>
-          <div class="story__year" aria-hidden="true">2012</div>
+          <div class="story__year">FOGO</div>
           <div class="story__truck">
-            <svg viewBox="0 0 420 260" aria-hidden="true">
+            <svg viewBox="0 0 420 260">
               <defs>
                 <linearGradient id="truckG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9161F"/><stop offset="1" stop-color="#7E0A11"/></linearGradient>
                 <radialGradient id="lampG"><stop offset="0" stop-color="#FFE3A8"/><stop offset="1" stop-color="#F2A23A" stop-opacity="0"/></radialGradient>
@@ -186,76 +237,76 @@
 
         <div class="story__content">
           <p class="eyebrow reveal">Nossa história</p>
-          <h2 class="title reveal" data-split>Nascemos de um food truck, uma chapa de ferro e uma <em>obsessão.</em></h2>
-          <p class="lead reveal">Em 2012, o chef Rafael Brasa estacionou um food truck vermelho numa esquina da Vila Madalena com uma ideia fixa: hambúrguer bom é aquele que encontra o fogo no momento certo.</p>
-          <p class="reveal">A fila virou rotina, a rotina virou endereço e o endereço virou marca. Doze anos depois, o ritual continua o mesmo: carne moída no dia, bola prensada na chapa fumegante, crosta caramelizada e o cheddar caindo por cima enquanto ainda chia.</p>
+          <h2 class="title reveal" data-split>Uma chapa de ferro, fogo alto e uma <em>obsessão.</em></h2>
+          <p class="lead reveal">A BRASA nasceu de uma ideia simples e teimosa: hambúrguer bom é aquele que encontra o fogo no momento exato. Nem um segundo antes, nem um segundo depois.</p>
+          <p class="reveal">Por isso, cada burger passa pelo mesmo ritual: carne fresca porcionada à mão, bola prensada na chapa fumegante, crosta caramelizada e o cheddar caindo por cima enquanto ainda chia. É o espírito da comida de rua com o cuidado de uma cozinha autoral.</p>
 
-          <ol class="timeline reveal" style="--p:0">
-            <li><b>2012</b><span>O food truck vermelho acende a primeira brasa.</span></li>
-            <li><b>2016</b><span>Primeira casa própria e o brioche passa a ser feito por nós.</span></li>
-            <li><b>2020</b><span>Delivery próprio para levar a brasa até a sua porta.</span></li>
-            <li><b>Hoje</b><span>+1 milhão de burgers servidos e a mesma obsessão.</span></li>
+          <ol class="timeline reveal" style="--p:0" aria-label="O ritual da brasa">
+            <li><b>Fogo</b><span>A chapa de ferro chega a 280°C antes do primeiro pedido.</span></li>
+            <li><b>Smash</b><span>A carne é prensada até formar a crosta que virou nossa assinatura.</span></li>
+            <li><b>Derrete</b><span>O cheddar entra no ponto certo e escorre pelas bordas.</span></li>
+            <li><b>Monta</b><span>Brioche tostado, camada por camada, direto para você.</span></li>
           </ol>
 
           <blockquote class="quote reveal">
-            <p>“A gente não cozinha para encher. A gente cozinha para marcar.”</p>
-            <cite>— Rafael Brasa, fundador</cite>
+            <p>“Hambúrguer não é fast food. É fogo, tempo e respeito pelo ingrediente.”</p>
+            <cite>— Manifesto BRASA</cite>
           </blockquote>
         </div>
       </div>
     </section>
 
     <!-- ================================================================ INGREDIENTES -->
-    <section class="section ingredients" id="ingredientes">
+    <section class="section ingredients sheet" id="ingredientes">
       <div class="container">
         <header class="section-head section-head--center">
           <p class="eyebrow eyebrow--dark reveal">Qualidade dos ingredientes</p>
           <h2 class="title title--dark reveal" data-split>Cada camada tem <em>origem,</em> nome e motivo para estar ali.</h2>
-          <p class="lead lead--dark reveal">Trabalhamos com produtores parceiros, recebemos insumos frescos todos os dias e não usamos conservantes. Simples assim — e trabalhoso assim.</p>
+          <p class="lead lead--dark reveal">Escolhemos cada ingrediente pelo sabor, não pela conveniência. Insumos frescos, preparo diário e nenhum atalho industrial. Dá mais trabalho, e é exatamente por isso que vale a pena.</p>
         </header>
 
         <div class="ing-grid">
           <article class="ing-card tilt reveal" style="--i:0">
-            <div class="ing-card__art" data-art="topBun"></div>
+            <div class="ing-card__art" data-art="topBun" aria-hidden="true"></div>
             <span class="ing-card__num">01</span>
             <h3>Brioche artesanal</h3>
-            <p>Fermentação natural de 48h, manteiga de verdade e gergelim tostado. Assado na casa a cada 4 horas.</p>
-            <span class="ing-card__tag">Padaria própria</span>
+            <p>Massa amanteigada de fermentação lenta, casca dourada e miolo macio que abraça o burger sem desmanchar.</p>
+            <span class="ing-card__tag">Tostado na manteiga</span>
           </article>
           <article class="ing-card tilt reveal" style="--i:1">
-            <div class="ing-card__art" data-art="patty"></div>
+            <div class="ing-card__art" data-art="patty" aria-hidden="true"></div>
             <span class="ing-card__num">02</span>
-            <h3>Blend Angus 180g</h3>
-            <p>Acém, peito e costela moídos no dia, na proporção exata de 20% de gordura para uma crosta perfeita.</p>
-            <span class="ing-card__tag">Moído diariamente</span>
+            <h3>Blend da casa 180g</h3>
+            <p>Cortes bovinos selecionados, moídos e porcionados à mão, com a gordura na medida certa para uma crosta perfeita.</p>
+            <span class="ing-card__tag">Carne fresca</span>
           </article>
           <article class="ing-card tilt reveal" style="--i:2">
-            <div class="ing-card__art" data-art="cheese"></div>
+            <div class="ing-card__art" data-art="cheese" aria-hidden="true"></div>
             <span class="ing-card__num">03</span>
-            <h3>Cheddar inglês</h3>
-            <p>Maturado por 9 meses, derrete lentamente sobre a carne quente e cria aquela camada que escorre.</p>
-            <span class="ing-card__tag">Maturação 9 meses</span>
+            <h3>Cheddar derretido</h3>
+            <p>Cremoso, intenso e generoso. Entra sobre a carne ainda chiando e escorre pelas bordas, do jeito que tem que ser.</p>
+            <span class="ing-card__tag">Derrete no ponto</span>
           </article>
           <article class="ing-card tilt reveal" style="--i:3">
-            <div class="ing-card__art" data-art="bacon"></div>
+            <div class="ing-card__art" data-art="bacon" aria-hidden="true"></div>
             <span class="ing-card__num">04</span>
-            <h3>Bacon na lenha</h3>
-            <p>Barriga suína curada por 7 dias e defumada em lenha de macieira por um produtor de Minas Gerais.</p>
-            <span class="ing-card__tag">Defumação artesanal</span>
+            <h3>Bacon defumado</h3>
+            <p>Fatias defumadas lentamente e douradas na chapa até ficarem crocantes por fora e suculentas por dentro.</p>
+            <span class="ing-card__tag">Crocante na medida</span>
           </article>
           <article class="ing-card tilt reveal" style="--i:4">
-            <div class="ing-card__art ing-card__art--duo"><div data-art="tomato"></div><div data-art="lettuce"></div></div>
+            <div class="ing-card__art ing-card__art--duo" aria-hidden="true"><div data-art="tomato"></div><div data-art="lettuce"></div></div>
             <span class="ing-card__num">05</span>
-            <h3>Hortifrúti do dia</h3>
-            <p>Alface, tomate italiano e cebola roxa colhidos por pequenos produtores do cinturão verde de SP.</p>
-            <span class="ing-card__tag">Produtor local</span>
+            <h3>Hortifrúti fresco</h3>
+            <p>Alface crocante, tomate maduro e cebola roxa selecionados todos os dias para trazer frescor e equilíbrio a cada mordida.</p>
+            <span class="ing-card__tag">Selecionado diariamente</span>
           </article>
         </div>
       </div>
     </section>
 
     <!-- ================================================================ DIFERENCIAIS -->
-    <section class="section features" id="diferenciais">
+    <section class="section features sheet" id="diferenciais">
       <div class="features__fire" aria-hidden="true"></div>
       <div class="container">
         <header class="section-head">
@@ -265,90 +316,92 @@
 
         <div class="feat-grid">
           <article class="feat spot reveal" style="--i:0">
-            <div class="feat__icon"><svg viewBox="0 0 48 48"><path d="M24 4c3 9 13 13 13 25a13 13 0 0 1-26 0c0-6 3-9 5-13 1 5 3 7 5 7-1-7 0-13 3-19z"/></svg></div>
-            <div class="feat__num"><span data-count="280">0</span><small>°C</small></div>
-            <h3>Chapa de ferro fundido</h3>
-            <p>A temperatura que sela, carameliza e cria a crosta smash que virou nossa assinatura.</p>
+            <div class="feat__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 4c3 9 13 13 13 25a13 13 0 0 1-26 0c0-6 3-9 5-13 1 5 3 7 5 7-1-7 0-13 3-19z"/></svg></div>
+            <div class="feat__num"><span data-count="280">280</span><small>°C</small></div>
+            <h3>Chapa bem quente</h3>
+            <p>A temperatura que sela, carameliza e cria a crosta smash que virou a nossa assinatura.</p>
           </article>
           <article class="feat spot reveal" style="--i:1">
-            <div class="feat__icon"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 13v11l7 5"/></svg></div>
-            <div class="feat__num"><span data-count="48">0</span><small>h</small></div>
-            <h3>Fermentação natural</h3>
-            <p>Nosso brioche descansa dois dias inteiros antes de chegar à chapa. Leve, macio e dourado.</p>
+            <div class="feat__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 8v32M12 40h24M8 14h32M8 14l-5 12a5 5 0 0 0 10 0zM40 14l-5 12a5 5 0 0 0 10 0z"/></svg></div>
+            <div class="feat__num"><span data-count="180">180</span><small>g</small></div>
+            <h3>Blend generoso</h3>
+            <p>Carne fresca porcionada à mão: alta, suculenta e com sabor de verdade em cada mordida.</p>
           </article>
           <article class="feat spot reveal" style="--i:2">
-            <div class="feat__icon"><svg viewBox="0 0 48 48"><path d="M10 26l9 9 19-21"/><circle cx="24" cy="24" r="20"/></svg></div>
-            <div class="feat__num"><span data-count="0">0</span><small>conservantes</small></div>
-            <h3>100% artesanal</h3>
-            <p>Molhos, picles e pães feitos na nossa cozinha. Nada sai de um pote industrial.</p>
+            <div class="feat__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M14 27a8 8 0 0 1 1.5-15.8A9.5 9.5 0 0 1 32.5 11 8 8 0 0 1 34 27v11H14zM14 32h20"/></svg></div>
+            <div class="feat__num"><span data-count="100">100</span><small>%</small></div>
+            <h3>Feito na casa</h3>
+            <p>Molhos, picles e preparos saem da nossa cozinha. O sabor é nosso do começo ao fim.</p>
           </article>
           <article class="feat spot reveal" style="--i:3">
-            <div class="feat__icon"><svg viewBox="0 0 48 48"><path d="M6 30h26l6-10h4v14H6zM12 34a4 4 0 1 0 8 0M30 34a4 4 0 1 0 8 0M14 20h12"/></svg></div>
-            <div class="feat__num"><span data-count="35">0</span><small>min</small></div>
-            <h3>Delivery próprio</h3>
-            <p>Embalagem térmica com respiro para o burger chegar quente, suculento e com o pão crocante.</p>
+            <div class="feat__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 6v36M8.4 15l31.2 18M8.4 33l31.2-18M7 7l34 34"/></svg></div>
+            <div class="feat__num"><span data-count="0">0</span><small>congelados</small></div>
+            <h3>Carne fresca</h3>
+            <p>Nada de hambúrguer de caixa. A carne chega fresca, é porcionada na casa e vai direto para a chapa.</p>
           </article>
           <article class="feat spot reveal" style="--i:4">
-            <div class="feat__icon"><svg viewBox="0 0 48 48"><path d="M24 6l5.4 11 12.1 1.8-8.8 8.5 2.1 12L24 33.6 13.2 39.3l2.1-12-8.8-8.5L18.6 17z"/></svg></div>
-            <div class="feat__num"><span data-count="4.9" data-decimals="1">0</span><small>/5</small></div>
-            <h3>Avaliação média</h3>
-            <p>Mais de 12 mil avaliações entre salão e delivery. A melhor propaganda é quem voltou.</p>
+            <div class="feat__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 6l18 9-18 9-18-9zM6 24l18 9 18-9M6 33l18 9 18-9"/></svg></div>
+            <div class="feat__num"><span data-count="8">8</span><small>camadas</small></div>
+            <h3>Montagem precisa</h3>
+            <p>Cada ingrediente entra na ordem certa para equilibrar textura, temperatura e sabor.</p>
           </article>
           <article class="feat spot reveal" style="--i:5">
-            <div class="feat__icon"><svg viewBox="0 0 48 48"><path d="M8 40c4-14 12-22 32-32-2 20-12 28-26 30"/><path d="M8 40l14-14"/></svg></div>
-            <div class="feat__num"><span data-count="12">0</span><small>produtores</small></div>
-            <h3>Cadeia curta</h3>
-            <p>Compramos direto de quem planta e cria. Mais frescor no prato, mais renda para o pequeno produtor.</p>
+            <div class="feat__icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 6l5.4 11 12.1 1.8-8.8 8.5 2.1 12L24 33.6 13.2 39.3l2.1-12-8.8-8.5L18.6 17z"/></svg></div>
+            <div class="feat__num"><span data-count="5">5</span><small>sentidos</small></div>
+            <h3>Experiência completa</h3>
+            <p>O chiado da chapa, o cheiro da brasa, o visual, a textura e, claro, o sabor.</p>
           </article>
         </div>
       </div>
     </section>
 
     <!-- ================================================================ AVALIAÇÕES -->
-    <section class="section reviews" id="avaliacoes">
+    <section class="section reviews sheet" id="avaliacoes">
       <div class="container">
         <header class="section-head reviews__head">
           <div>
             <p class="eyebrow eyebrow--dark reveal">Avaliações de clientes</p>
             <h2 class="title title--dark reveal" data-split>Quem prova, <em>volta.</em> E conta para todo mundo.</h2>
           </div>
-          <div class="reviews__score reveal">
-            <b>4,9</b>
+          <!-- Selo preenchido por js/config.js (reviews.rating / reviews.count). Fica oculto se vazio. -->
+          <a class="reviews__score reveal" id="reviewsScore" hidden target="_blank" rel="noopener">
+            <b data-review="rating"></b>
             <div>
-              <span class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
-              <small>+12.400 avaliações verificadas</small>
+              <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+              <small data-review="count"></small>
             </div>
-          </div>
+          </a>
         </header>
 
-        <div class="slider reveal" id="reviews" aria-roledescription="carrossel" aria-label="Avaliações">
+        <!-- DEPOIMENTOS DE EXEMPLO: substituir por avaliações reais de clientes antes da publicação. -->
+        <div class="slider reveal" id="reviews" tabindex="0" aria-roledescription="carrossel" aria-label="Avaliações de clientes">
           <div class="slider__viewport">
             <ul class="slider__track">
-              <li class="review"><div class="review__stars stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-                <p>“A crosta do smash é absurda. O cheddar escorrendo pelo lado já vale a visita. Melhor burger que comi em São Paulo, sem exagero.”</p>
-                <footer><span class="avatar" style="--h:4">MC</span><div><b>Marina Castro</b><small>Salão · Vila Madalena</small></div></footer></li>
-              <li class="review"><div class="review__stars stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-                <p>“Pedi pelo delivery achando que ia chegar murcho. Chegou quente, pão crocante e embalagem impecável. Virou o pedido de sexta.”</p>
-                <footer><span class="avatar" style="--h:30">LP</span><div><b>Lucas Prado</b><small>Delivery · Pinheiros</small></div></footer></li>
-              <li class="review"><div class="review__stars stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-                <p>“Ambiente lindo, luz baixa, música boa e o cheiro da brasa já na calçada. O atendimento faz você se sentir em casa.”</p>
-                <footer><span class="avatar" style="--h:350">AR</span><div><b>Ana Ribeiro</b><small>Salão · aniversário</small></div></footer></li>
-              <li class="review"><div class="review__stars stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-                <p>“Dá pra sentir que a carne é moída no dia. Suculento do primeiro ao último pedaço, e o brioche segura tudo sem desmanchar.”</p>
-                <footer><span class="avatar" style="--h:18">TS</span><div><b>Thiago Souza</b><small>Crítico gastronômico</small></div></footer></li>
-              <li class="review"><div class="review__stars stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-                <p>“Levei meus pais que ‘não gostam de hambúrguer’. Saíram perguntando quando a gente volta. Precisa dizer mais?”</p>
-                <footer><span class="avatar" style="--h:40">JF</span><div><b>Juliana Freitas</b><small>Salão · almoço de domingo</small></div></footer></li>
-              <li class="review"><div class="review__stars stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
-                <p>“O bacon defumado tem um aroma que não encontrei em nenhum outro lugar. Equilíbrio perfeito entre gordura, sal e fumaça.”</p>
-                <footer><span class="avatar" style="--h:10">RM</span><div><b>Rodrigo Martins</b><small>Delivery · Perdizes</small></div></footer></li>
+              <li class="review"><div class="review__stars stars" aria-label="5 de 5 estrelas"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+                <p>“A crosta do smash é absurda e o cheddar escorrendo pelo lado já vale a visita. Hambúrguer de respeito, do primeiro ao último pedaço.”</p>
+                <footer><span class="avatar" style="--h:4" aria-hidden="true">MC</span><div><b>Marina C.</b><small>Cliente · salão</small></div></footer></li>
+              <li class="review"><div class="review__stars stars" aria-label="5 de 5 estrelas"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+                <p>“Pedi achando que ia chegar murcho, mas veio quente, com o pão crocante e a embalagem impecável. Virou o pedido oficial de sexta.”</p>
+                <footer><span class="avatar" style="--h:30" aria-hidden="true">LP</span><div><b>Lucas P.</b><small>Cliente · pedido para viagem</small></div></footer></li>
+              <li class="review"><div class="review__stars stars" aria-label="5 de 5 estrelas"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+                <p>“Luz baixa, música boa e o cheiro da brasa já na calçada. O atendimento faz você se sentir em casa.”</p>
+                <footer><span class="avatar" style="--h:350" aria-hidden="true">AR</span><div><b>Ana R.</b><small>Cliente · salão</small></div></footer></li>
+              <li class="review"><div class="review__stars stars" aria-label="5 de 5 estrelas"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+                <p>“Dá para sentir que a carne é fresca. Suculento do começo ao fim, e o brioche segura tudo sem desmanchar.”</p>
+                <footer><span class="avatar" style="--h:18" aria-hidden="true">TS</span><div><b>Thiago S.</b><small>Cliente · salão</small></div></footer></li>
+              <li class="review"><div class="review__stars stars" aria-label="5 de 5 estrelas"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+                <p>“Levei meus pais, que ‘não gostam de hambúrguer’. Saíram perguntando quando a gente volta. Precisa dizer mais?”</p>
+                <footer><span class="avatar" style="--h:40" aria-hidden="true">JF</span><div><b>Juliana F.</b><small>Cliente · almoço de domingo</small></div></footer></li>
+              <li class="review"><div class="review__stars stars" aria-label="5 de 5 estrelas"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></div>
+                <p>“O bacon tem um defumado que eu não encontrei em nenhum outro lugar. Equilíbrio perfeito entre gordura, sal e fumaça.”</p>
+                <footer><span class="avatar" style="--h:10" aria-hidden="true">RM</span><div><b>Rodrigo M.</b><small>Cliente · pedido para viagem</small></div></footer></li>
             </ul>
           </div>
           <div class="slider__ui">
             <div class="slider__dots" role="tablist" aria-label="Escolher avaliação"></div>
             <div class="slider__arrows">
-              <button class="icon-btn" type="button" data-dir="-1" aria-label="Avaliação anterior"><svg style="transform:scaleX(-1)"><use href="#i-arrow"/></svg></button>
-              <button class="icon-btn" type="button" data-dir="1" aria-label="Próxima avaliação"><svg><use href="#i-arrow"/></svg></button>
+              <button class="icon-btn" type="button" data-dir="-1" aria-label="Avaliação anterior"><svg style="transform:scaleX(-1)" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              <button class="icon-btn" type="button" data-dir="1" aria-label="Próxima avaliação"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
             </div>
           </div>
         </div>
@@ -356,17 +409,18 @@
     </section>
 
     <!-- ================================================================ EXPERIÊNCIA -->
-    <section class="section experience" id="experiencia">
+    <section class="section experience sheet" id="experiencia">
       <div class="container">
         <header class="section-head">
           <p class="eyebrow reveal">Fotos e experiência</p>
           <h2 class="title reveal" data-split>Fogo aceso, luz baixa e <em>cheiro de brasa</em> na calçada.</h2>
-          <p class="lead reveal">Um salão pensado para desacelerar: cozinha aberta, balcão de frente para a chapa e trilha sonora escolhida a dedo.</p>
+          <p class="lead reveal">Cozinha aberta, balcão de frente para a chapa e trilha sonora escolhida a dedo. Um lugar para comer bem e sem pressa, do jeito que um burger artesanal merece.</p>
         </header>
 
+        <!-- Cada espaço recebe uma foto real via js/config.js (gallery). Sem foto, exibe a ilustração da marca. -->
         <div class="gallery">
           <figure class="shot shot--chapa reveal" data-shot="chapa" style="--i:0">
-            <div class="shot__art">
+            <div class="shot__art" aria-hidden="true">
               <div class="scene-grill">
                 <div class="scene-grill__plate"></div>
                 <div class="scene-grill__patty" data-art="patty"></div>
@@ -375,11 +429,12 @@
                 <div class="scene-grill__flames"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
               </div>
             </div>
-            <figcaption><span>01</span><b>A chapa</b><small>280°C de pura assinatura</small></figcaption>
+            <span class="shot__fx" aria-hidden="true"></span>
+            <figcaption><span>01</span><em>Preparo</em><b>Na chapa</b><small>O smash ganhando crosta a 280°C</small></figcaption>
           </figure>
 
           <figure class="shot shot--salao reveal" data-shot="salao" style="--i:1">
-            <div class="shot__art">
+            <div class="shot__art" aria-hidden="true">
               <div class="scene-neon">
                 <div class="scene-neon__bricks"></div>
                 <div class="scene-neon__sign"><svg><use href="#i-flame"/></svg><span>BRASA</span></div>
@@ -387,54 +442,58 @@
                 <div class="scene-neon__counter"></div>
               </div>
             </div>
-            <figcaption><span>02</span><b>O salão</b><small>Neon, tijolo e cozinha aberta</small></figcaption>
+            <span class="shot__fx" aria-hidden="true"></span>
+            <figcaption><span>02</span><em>Ambiente</em><b>O salão</b><small>Luz baixa, tijolo e cozinha aberta</small></figcaption>
           </figure>
 
           <figure class="shot shot--burger reveal" data-shot="burger" style="--i:2">
-            <div class="shot__art">
+            <div class="shot__art" aria-hidden="true">
               <div class="scene-spot"><div class="scene-spot__burger" data-burger="mini"></div></div>
             </div>
-            <figcaption><span>03</span><b>Feito na hora</b><small>Do pedido ao prato em minutos</small></figcaption>
+            <span class="shot__fx" aria-hidden="true"></span>
+            <figcaption><span>03</span><em>Hambúrgueres</em><b>Feito na hora</b><small>Montado camada por camada, no seu pedido</small></figcaption>
           </figure>
 
           <figure class="shot shot--batata reveal" data-shot="batata" style="--i:3">
-            <div class="shot__art">
+            <div class="shot__art" aria-hidden="true">
               <div class="scene-fries">
                 <div class="scene-fries__sticks"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
                 <div class="scene-fries__box"><svg><use href="#i-flame"/></svg></div>
               </div>
             </div>
-            <figcaption><span>04</span><b>Acompanhamentos</b><small>Batata rústica e molhos da casa</small></figcaption>
+            <span class="shot__fx" aria-hidden="true"></span>
+            <figcaption><span>04</span><em>Acompanhamentos</em><b>Batatas</b><small>Rústicas, crocantes e bem temperadas</small></figcaption>
           </figure>
 
           <figure class="shot shot--noite reveal" data-shot="noite" style="--i:4">
-            <div class="shot__art">
+            <div class="shot__art" aria-hidden="true">
               <div class="scene-night">
                 <div class="scene-night__bokeh"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
                 <div class="scene-night__wire"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
                 <p class="scene-night__text">Noites<br><em>de brasa</em></p>
               </div>
             </div>
-            <figcaption><span>05</span><b>Noites de brasa</b><small>Terça a domingo, até meia-noite</small></figcaption>
+            <span class="shot__fx" aria-hidden="true"></span>
+            <figcaption><span>05</span><em>Experiência</em><b>Noites de brasa</b><small>O melhor programa da semana</small></figcaption>
           </figure>
         </div>
       </div>
     </section>
 
     <!-- ================================================================ CTA -->
-    <section class="cta" id="pedido">
+    <section class="cta sheet" id="pedido">
       <div class="cta__bg" aria-hidden="true"></div>
       <div class="container cta__grid">
         <div class="cta__content">
           <p class="eyebrow eyebrow--light reveal">A brasa já está acesa</p>
           <h2 class="cta__title reveal" data-split>ESTÁ COM FOME? <em>A GENTE RESOLVE.</em></h2>
-          <p class="cta__lead reveal">Peça pelo WhatsApp e receba seu BRASA quentinho em casa — ou venha sentir o calor da chapa de perto.</p>
+          <p class="cta__lead reveal">Chame a gente no WhatsApp, escolha o seu favorito e deixe o resto com a brasa. Ou venha sentir o calor da chapa de perto.</p>
           <div class="cta__actions reveal">
-            <a class="btn btn--cream btn--lg magnetic" data-order href="#"><svg><use href="#i-whats"/></svg><span>FAÇA SEU PEDIDO</span></a>
+            <a class="btn btn--cream btn--lg magnetic" data-order href="#"><svg aria-hidden="true"><use href="#i-whats"/></svg><span>FAÇA SEU PEDIDO</span></a>
             <span class="cta__hours" data-contact="hours"></span>
           </div>
         </div>
-        <div class="cta__visual reveal">
+        <div class="cta__visual reveal" aria-hidden="true">
           <div class="cta__burger" data-burger="cta"></div>
         </div>
       </div>
@@ -452,25 +511,40 @@
         <p class="footer__claim">O sabor que acende sua vontade.</p>
       </div>
       <div class="footer__cols">
-        <div><h4>Endereço</h4><p data-contact="address"></p></div>
-        <div><h4>Horário</h4><p data-contact="hours"></p></div>
-        <div><h4>Contato</h4><p><a data-order href="#" class="link">WhatsApp</a> · <span data-contact="phone"></span></p></div>
-        <div><h4>Redes</h4><p><a class="link" data-social="instagram" href="#" target="_blank" rel="noopener">Instagram</a> · <a class="link" data-social="tiktok" href="#" target="_blank" rel="noopener">TikTok</a></p></div>
+        <div data-contact-block="address"><h2 class="footer__h">Endereço</h2><p data-contact="address"></p></div>
+        <div data-contact-block="hours"><h2 class="footer__h">Horário</h2><p data-contact="hours"></p></div>
+        <div><h2 class="footer__h">Pedidos</h2><p><a data-order href="#" class="link">WhatsApp</a><span data-contact="phone"></span><span data-contact="email"></span></p></div>
+        <div data-contact-block="socials"><h2 class="footer__h">Redes sociais</h2><p data-socials></p></div>
       </div>
       <div class="footer__bottom">
-        <span>© <span id="year"></span> BRASA BURGER. Marca fictícia para fins demonstrativos.</span>
+        <span>© <span id="year">2026</span> BRASA BURGER. Todos os direitos reservados.</span>
         <a href="#inicio" class="link">Voltar ao topo ↑</a>
       </div>
     </div>
     <div class="footer__giant" aria-hidden="true">BRASA</div>
   </footer>
 
-  <a class="whats-float" data-order href="#" aria-label="Fazer pedido pelo WhatsApp"><svg><use href="#i-whats"/></svg><span>Peça agora</span></a>
+  <a class="whats-float" data-order href="#"><svg aria-hidden="true"><use href="#i-whats"/></svg><span>Faça seu pedido</span></a>
 
-  <script src="js/config.js"></script>
-  <script src="js/burger.js"></script>
-  <script src="js/embers.js"></script>
-  <script src="js/loader.js"></script>
-  <script src="js/main.js"></script>
+  <!-- Visualizador das fotos da galeria -->
+  <dialog class="lightbox" id="lightbox" aria-label="Foto ampliada">
+    <figure class="lightbox__figure"><img alt="" decoding="async"><figcaption></figcaption></figure>
+    <button class="lightbox__btn lightbox__close" type="button" aria-label="Fechar"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+    <button class="lightbox__btn lightbox__prev" type="button" data-dir="-1" aria-label="Foto anterior"><svg style="transform:scaleX(-1)" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+    <button class="lightbox__btn lightbox__next" type="button" data-dir="1" aria-label="Próxima foto"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+  </dialog>
+
+  <script>
+    /* Segurança: se algum script falhar, a intro é removida e o site aparece. */
+    setTimeout(function () {
+      var d = document.documentElement, l = document.getElementById('loader');
+      if (d.classList.contains('is-loading')) { d.classList.remove('is-loading'); d.classList.add('is-ready'); if (l) l.style.display = 'none'; }
+    }, 12000);
+  </script>
+  <script src="js/config.js" defer></script>
+  <script src="js/burger.js" defer></script>
+  <script src="js/embers.js" defer></script>
+  <script src="js/loader.js" defer></script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>

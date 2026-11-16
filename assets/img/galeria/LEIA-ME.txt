@@ -1,0 +1,25 @@
+FOTOS DA GALERIA — BRASA BURGER
+================================
+
+Coloque aqui as fotos reais e informe o caminho de cada uma em js/config.js
+(bloco "gallery"). Enquanto um espaço não tiver foto, o site mostra a
+ilustração animada da marca.
+
+Espaço     Conteúdo sugerido                          Formato do espaço   Tamanho ideal
+--------   ----------------------------------------   -----------------   --------------
+chapa      Burger sendo prensado/selado na chapa       horizontal largo    1800 x 1200 px
+salao      Ambiente / salão / balcão / fachada         horizontal          1400 x 1000 px
+burger     Hambúrguer em destaque (foto "herói")       vertical            1200 x 1500 px
+batata     Batatas / acompanhamentos                   horizontal          1400 x 1000 px
+noite      Clima do salão à noite / clientes           quadrado            1200 x 1200 px
+
+Dicas
+- Prefira .webp ou .jpg com qualidade 75–82%. Mantenha cada arquivo abaixo de ~350 KB.
+- Use nomes simples, sem acentos ou espaços. Ex.: chapa.webp, salao.webp.
+- Fundo escuro e luz quente combinam com a identidade do site.
+- Se o enquadramento cortar o prato, ajuste "position" no config
+  (ex.: 'center 30%' sobe o foco; 'left center' puxa para a esquerda).
+- Ao clicar numa foto real, ela abre ampliada (visualizador com setas).
+
+Exemplo em js/config.js:
+  chapa: { image: 'assets/img/galeria/chapa.webp', alt: 'Hambúrguer sendo prensado na chapa', position: 'center' },

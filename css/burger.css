@@ -2,7 +2,6 @@
    BRASA BURGER — Burger component (layers, depth, labels, melting cheese)
    ========================================================================== */
 .b-stage-wrap {
-  --explode: 0;
   position: relative;
   aspect-ratio: 600 / 640;
   perspective: 1400px;
@@ -20,7 +19,9 @@
 }
 .b-layer__in { position: relative; }
 .b-layer svg { width: 100%; height: auto; overflow: visible; }
-.b-layer:not(.b-layer--shadow) svg { filter: drop-shadow(0 calc(4px + var(--explode) * 16px) calc(6px + var(--explode) * 14px) rgba(10, 4, 2, .45)); }
+/* Static shadow: an animated filter would force a repaint on every frame. */
+.b-layer:not(.b-layer--shadow):not(.b-layer--cheese) svg { filter: drop-shadow(0 8px 10px rgba(10, 4, 2, .45)); }
+/* The cheese repaints while it oozes, so it skips the (costly) filter. */
 
 /* Melting cheese: gentle ooze */
 .b-drip {
@@ -36,24 +37,30 @@
   position: absolute; top: 50%; left: 74%;
   display: flex; align-items: center; gap: 10px;
   white-space: nowrap; pointer-events: none;
-  opacity: clamp(0, calc((var(--explode) - .55) * 3), 1);
-  transform: translate(calc((1 - var(--explode)) * -24px), -50%);
+  opacity: clamp(0, calc((var(--explode, 0) - .55) * 3), 1);
+  transform: translate(calc((1 - var(--explode, 0)) * -24px), -50%);
 }
 .b-label i { width: clamp(14px, 2.2vw, 34px); height: 1px; background: linear-gradient(90deg, rgba(255, 196, 107, 0), var(--gold)); position: relative; }
 .b-label i::after { content: ''; position: absolute; right: -3px; top: -3px; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 12px var(--gold); }
 .b-label b {
   font-size: clamp(10px, .85vw, 13px); font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
   color: var(--cream); padding: 6px 12px; border-radius: 100px;
-  background: rgba(25, 19, 19, .72); border: 1px solid rgba(242, 162, 58, .35);
-  backdrop-filter: blur(8px);
+  background: rgba(25, 19, 19, .88); border: 1px solid rgba(242, 162, 58, .35);
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, .6);
 }
-.b-label--left { left: auto; right: 74%; flex-direction: row-reverse; transform: translate(calc((1 - var(--explode)) * 24px), -50%); }
+/* Hide labels while the hero burger assembles for the first time */
+.is-intro .b-label { opacity: 0 !important; transition: none; }
+.b-label { transition: opacity .3s; }
+.b-label--left { left: auto; right: 74%; flex-direction: row-reverse; transform: translate(calc((1 - var(--explode, 0)) * 24px), -50%); }
 .b-label--left i { background: linear-gradient(270deg, rgba(255, 196, 107, 0), var(--gold)); }
 .b-label--left i::after { right: auto; left: -3px; }
 .b-layer--cheese .b-label { top: 20%; }
 .b-layer--topBun .b-label { top: 60%; }
 
 @media (max-width: 720px) {
-  .b-label b { font-size: 9px; padding: 4px 8px; letter-spacing: .06em; }
-  .b-label i { width: 14px; }
+  /* On phones the chips sit on the edge of each ingredient, inside the screen */
+  .b-label { left: auto; right: -2%; }
+  .b-label--left { right: auto; left: -2%; }
+  .b-label b { font-size: 8.5px; padding: 4px 8px; letter-spacing: .06em; }
+  .b-label i { display: none; }
 }

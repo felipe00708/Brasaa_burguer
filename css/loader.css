@@ -32,6 +32,7 @@
   transition: opacity .6s;
 }
 @keyframes loader-breathe { from { opacity: .75; } to { opacity: 1; } }
+.loader__embers { position: absolute; inset: 0; z-index: 1; width: 100%; height: 100%; pointer-events: none; transition: opacity .5s; }
 .loader__grain {
   position: absolute; inset: -50%; z-index: 1; opacity: .07; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -61,7 +62,16 @@
   75% { transform: scale(.98, 1.04) skewX(-1deg); }
 }
 
-.loader__burger { width: min(72vw, 360px, 44vh); }
+.loader__burger { position: relative; width: min(72vw, 360px, 44vh); }
+/* Warm glow that flares when the last ingredient lands */
+.loader__burger::before {
+  content: ''; position: absolute; left: 10%; right: 10%; bottom: 2%; height: 30%; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255, 196, 107, .55), rgba(232, 82, 31, .25) 55%, transparent);
+  filter: blur(14px); opacity: .25; transform: scale(.7);
+  transition: opacity .8s var(--ease-out), transform 1s var(--ease-out);
+}
+.loader.is-assembled .loader__burger::before { opacity: 1; transform: scale(1.15); }
+.loader.is-assembled .loader__flame { filter: drop-shadow(0 0 22px rgba(242, 162, 58, .95)); }
 
 .loader__status { width: min(80vw, 340px); display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 10px 16px; opacity: 0; animation: loader-in .8s var(--ease-out) .4s forwards; }
 .loader__phrase { grid-column: 1 / -1; text-align: center; font-family: var(--f-serif); font-style: italic; font-size: 17px; color: var(--ink-soft); min-height: 1.6em; }
@@ -82,7 +92,7 @@
 /* ---- Exit: zoom into the burger, gold seam, curtains split ---- */
 .loader.is-leaving { pointer-events: none; }
 .loader.is-leaving .loader__inner { transform: scale(1.9) translateY(4%); opacity: 0; filter: blur(10px); }
-.loader.is-leaving .loader__bg, .loader.is-leaving .loader__grain, .loader.is-leaving .loader__skip { opacity: 0; }
+.loader.is-leaving .loader__bg, .loader.is-leaving .loader__grain, .loader.is-leaving .loader__embers, .loader.is-leaving .loader__skip { opacity: 0; }
 .loader.is-leaving .loader__curtain--top::after { transform: translateX(-50%) scaleX(1); }
 .loader.is-leaving .loader__curtain--top { transform: translateY(-101%); }
 .loader.is-leaving .loader__curtain--bottom { transform: translateY(101%); }
