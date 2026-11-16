@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEXT SITES — Vídeo Publicitário</title>
+<style>
+  @font-face { font-family: 'Montserrat'; font-weight: 500; src: url('assets/fonts/montserrat-latin-500-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Montserrat'; font-weight: 600; src: url('assets/fonts/montserrat-latin-600-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Montserrat'; font-weight: 700; src: url('assets/fonts/montserrat-latin-700-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Montserrat'; font-weight: 800; src: url('assets/fonts/montserrat-latin-800-normal.woff2') format('woff2'); }
+  @font-face { font-family: 'Montserrat'; font-weight: 900; src: url('assets/fonts/montserrat-latin-900-normal.woff2') format('woff2'); }
+  :root {
+    --blue: #0057F1; --neon: #00A6FF; --black: #05070D; --ice: #F4F6FA;
+    --panel: #0B0F19; --line: #1A2233; --muted: #8A93A6;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--black); color: var(--ice); font-family: Montserrat, Inter, Arial, sans-serif; }
+  body { display: flex; flex-direction: column; }
+  header { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--line); }
+  header b { font-weight: 900; letter-spacing: .04em; }
+  header b span { color: var(--neon); }
+  header small { color: var(--muted); font-weight: 500; }
+  main { flex: 1; display: flex; gap: 16px; padding: 16px; min-height: 0; }
+  .stageCol { flex: 1; display: flex; flex-direction: column; align-items: center; min-width: 0; min-height: 0; gap: 10px; }
+  .stageWrap { position: relative; flex: 1; min-height: 0; aspect-ratio: 9 / 16; max-width: 100%; border-radius: 14px; overflow: hidden; box-shadow: 0 0 0 1px var(--line), 0 20px 80px rgba(0,87,241,.25); background: #000; }
+  canvas#stage { width: 100%; height: 100%; display: block; }
+  .safe { position: absolute; inset: 0; pointer-events: none; display: none; }
+  .safe.on { display: block; }
+  .safe i { position: absolute; left: 0; right: 0; background: rgba(0,166,255,.12); border: 1px dashed rgba(0,166,255,.6); font-style: normal; font-size: 11px; color: var(--neon); padding: 4px 8px; }
+  .safe .top { top: 0; height: 13%; } .safe .bot { bottom: 0; height: 20%; display: flex; align-items: flex-end; }
+  .safe .right { top: 13%; bottom: 20%; left: auto; width: 12%; }
+  .bigPlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(5,7,13,.35); border: 0; cursor: pointer; color: var(--ice); font: inherit; }
+  .bigPlay span { width: 84px; height: 84px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 40px var(--neon); display: grid; place-items: center; font-size: 30px; }
+  .bigPlay.hide { display: none; }
+  .transport { width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 8px; }
+  .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  button, .file { background: #121A2B; color: var(--ice); border: 1px solid #22304A; border-radius: 10px; padding: 9px 14px; font: 600 13px Montserrat, Arial, sans-serif; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  button:hover, .file:hover { border-color: var(--neon); }
+  button.primary { background: var(--blue); border-color: var(--blue); }
+  button.primary:hover { box-shadow: 0 0 18px rgba(0,166,255,.6); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  .file input { display: none; }
+  .time { font: 700 13px 'JetBrains Mono', ui-monospace, monospace; color: var(--muted); min-width: 120px; }
+  .tl { position: relative; height: 96px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; cursor: pointer; user-select: none; overflow: hidden; }
+  .tl .lane { position: absolute; left: 0; right: 0; }
+  .tl .scenes { top: 0; height: 26px; }
+  .tl .scene { position: absolute; top: 3px; bottom: 3px; border-radius: 6px; background: rgba(0,87,241,.28); border: 1px solid rgba(0,166,255,.35); font-size: 10px; font-weight: 700; padding: 4px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tl .vo { top: 28px; height: 26px; }
+  .tl .cue { position: absolute; top: 3px; bottom: 3px; border-radius: 6px; background: repeating-linear-gradient(45deg, rgba(244,246,250,.06) 0 6px, rgba(244,246,250,.02) 6px 12px); border: 1px dashed rgba(244,246,250,.25); font-size: 9px; color: var(--muted); padding: 5px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tl canvas.wave { position: absolute; left: 0; top: 56px; width: 100%; height: 38px; }
+  .tl .label { position: absolute; left: 6px; font-size: 9px; color: var(--muted); font-weight: 700; letter-spacing: .08em; z-index: 2; pointer-events: none; }
+  .tl .ph { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--neon); box-shadow: 0 0 10px var(--neon); pointer-events: none; z-index: 3; }
+  aside { width: 340px; flex-shrink: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 16px; overflow: auto; display: flex; flex-direction: column; gap: 18px; }
+  aside h3 { margin: 0 0 8px; font-size: 12px; letter-spacing: .12em; color: var(--neon); }
+  aside p { margin: 0; font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .ctl { display: grid; grid-template-columns: 92px 1fr 44px; align-items: center; gap: 8px; font-size: 12px; margin: 6px 0; }
+  .ctl output { font: 600 11px ui-monospace, monospace; color: var(--muted); text-align: right; }
+  input[type=range] { width: 100%; accent-color: var(--neon); }
+  select { background: #121A2B; color: var(--ice); border: 1px solid #22304A; border-radius: 8px; padding: 7px; font: 600 12px Montserrat, Arial; }
+  label.chk { display: flex; gap: 8px; align-items: center; font-size: 12px; }
+  .bar { height: 8px; background: #121A2B; border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--blue), var(--neon)); }
+  #status { font-size: 12px; color: var(--muted); min-height: 1.4em; }
+  .cues { font-size: 11px; color: var(--muted); display: grid; gap: 4px; }
+  .cues div { display: grid; grid-template-columns: 82px 1fr; gap: 6px; }
+  .cues b { color: var(--ice); font-weight: 600; font-family: ui-monospace, monospace; font-size: 10px; }
+  body.render header, body.render aside, body.render .transport, body.render .bigPlay { display: none !important; }
+  body.render main { padding: 0; }
+  @media (max-width: 900px) {
+    main { flex-direction: column; padding: 16px; }
+    .stageWrap { width: min(100%, 420px); flex: none; height: auto; }
+    aside { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <b>NEXT <span>SITES</span></b>
+  <small>Vídeo publicitário · 1080×1920 · 35 s · 9:16</small>
+</header>
+<main>
+  <div class="stageCol">
+    <div class="stageWrap" id="stageWrap">
+      <canvas id="stage" width="1080" height="1920"></canvas>
+      <div class="safe" id="safe"><i class="top">Área da interface do Instagram</i><i class="right"></i><i class="bot">Área da legenda / botões</i></div>
+      <button class="bigPlay" id="bigPlay" aria-label="Reproduzir"><span>▶</span></button>
+    </div>
+    <div class="transport">
+      <div class="row">
+        <button class="primary" id="playBtn">▶ Reproduzir</button>
+        <button id="restartBtn">⟲ Reiniciar</button>
+        <span class="time" id="time">00:00.00 / 00:35.00</span>
+        <label class="chk"><input type="checkbox" id="loop"> Repetir</label>
+        <label class="chk"><input type="checkbox" id="safeChk"> Zona segura</label>
+      </div>
+      <div class="tl" id="tl">
+        <div class="lane scenes" id="laneScenes"></div>
+        <div class="lane vo" id="laneVo"></div>
+        <span class="label" style="top:60px">NARRAÇÃO (arquivo externo)</span>
+        <canvas class="wave" id="wave" width="1800" height="76"></canvas>
+        <div class="ph" id="ph"></div>
+      </div>
+    </div>
+  </div>
+  <aside>
+    <section>
+      <h3>MIXER</h3>
+      <div class="ctl"><span>Trilha</span><input type="range" id="vMusic" min="0" max="1.5" step="0.01" value="1"><output id="oMusic">100%</output></div>
+      <div class="ctl"><span>Efeitos</span><input type="range" id="vSfx" min="0" max="1.5" step="0.01" value="1"><output id="oSfx">100%</output></div>
+      <div class="ctl"><span>Narração</span><input type="range" id="vNarr" min="0" max="2" step="0.01" value="1"><output id="oNarr">100%</output></div>
+    </section>
+    <section>
+      <h3>NARRAÇÃO (ELEVENLABS)</h3>
+      <p>Nenhuma voz é gerada aqui. Carregue o arquivo MP3 ou WAV da narração e ajuste o deslocamento para sincronizar com as cenas.</p>
+      <div class="row" style="margin-top:8px">
+        <label class="file">🎙 Carregar narração<input type="file" id="narrFile" accept="audio/*,.mp3,.wav"></label>
+        <button id="narrClear" disabled>Remover</button>
+      </div>
+      <div class="ctl"><span>Início em</span><input type="range" id="narrOffset" min="-5" max="10" step="0.05" value="0"><output id="oOffset">0,00s</output></div>
+      <div class="ctl"><span>Trilha sob voz</span><input type="range" id="duck" min="0.1" max="1" step="0.01" value="0.45"><output id="oDuck">45%</output></div>
+      <p id="narrInfo"></p>
+    </section>
+    <section>
+      <h3>LOGO</h3>
+      <p>O emblema exibido é provisório. Carregue a logo oficial (PNG com fundo transparente ou SVG) para usá-la no encerramento — o desenho e as cores originais são mantidos. Ou salve-a como <code>assets/logo.png</code>.</p>
+      <div class="row" style="margin-top:8px">
+        <label class="file">🖼 Carregar logo<input type="file" id="logoFile" accept="image/png,image/svg+xml,image/webp,image/jpeg"></label>
+        <button id="logoClear" disabled>Usar provisória</button>
+      </div>
+    </section>
+    <section>
+      <h3>EXPORTAR</h3>
+      <div class="row">
+        <select id="fps"><option value="30">30 fps</option><option value="60">60 fps</option></select>
+        <label class="chk"><input type="checkbox" id="expAudio" checked> Com áudio</label>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button class="primary" id="exportBtn">⬇ Exportar MP4</button>
+      </div>
+      <div class="bar" style="margin-top:10px"><i id="prog"></i></div>
+      <div class="row" style="margin-top:10px">
+        <button id="wavMusic">Trilha .wav</button>
+        <button id="wavSfx">Efeitos .wav</button>
+        <button id="wavMix">Mix .wav</button>
+      </div>
+      <p id="status" style="margin-top:8px"></p>
+    </section>
+    <section>
+      <h3>MARCAÇÕES PARA A NARRAÇÃO</h3>
+      <div class="cues" id="cueList"></div>
+    </section>
+  </aside>
+</main>
+<script src="vendor/mp4-muxer.js"></script>
+<script src="src/timeline.js"></script>
+<script src="src/gfx.js"></script>
+<script src="src/screens.js"></script>
+<script src="src/scenes.js"></script>
+<script src="src/audio.js"></script>
+<script src="src/player.js"></script>
+</body>
+</html>
