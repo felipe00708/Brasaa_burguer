@@ -30,7 +30,7 @@
     const b = emblemBack.getContext('2d');
     b.setTransform(2, 0, 0, 2, 0, 0); b.clearRect(0, 0, EM, EM);
     const bg = b.createLinearGradient(0, EM, EM, 0); bg.addColorStop(0, '#032A80'); bg.addColorStop(1, C.blue);
-    b.fillStyle = bg; rr(b, 0, 0, EM, EM, LOGO.img ? EM * 0.5 : EM * 0.26); b.fill();
+    b.fillStyle = bg; rr(b, 0, 0, EM, EM, EM * (LOGO.img ? 0.215 : 0.26)); b.fill();
     b.setTransform(1, 0, 0, 1, 0, 0);
   }
 
@@ -540,7 +540,7 @@
     const lry = (1 - E.outCubic(lp)) * 1.6 + Math.sin(t * 0.9) * 0.08 * smooth(t, 31.5, 32.5);
     const fy = cy + Math.sin(t * 1.4) * 6 * smooth(t, 31.5, 32.5);
     buildEmblem(Math.max(P(t, CUE.logo + 0.6, CUE.logo + 1.4) * (t < CUE.logo + 1.4 ? 1 : 0), P(t, CUE.shine, CUE.shine + 1.0)));
-    G.extruded(g, emblemFace, emblemBack, W / 2, fy, 300 * ls, lry, { depth: LOGO.img ? 0.06 : 0.14, round: LOGO.img ? 0.5 : 0.26, alpha: smooth(t, CUE.logo, CUE.logo + 0.15) });
+    G.extruded(g, emblemFace, emblemBack, W / 2, fy, 300 * ls, lry, { depth: LOGO.img ? 0.12 : 0.14, round: LOGO.img ? 0.215 : 0.26, alpha: smooth(t, CUE.logo, CUE.logo + 0.15) });
 
     // marca
     const wp = P(t, CUE.wordmark, CUE.wordmark + 0.9), we = E.outExpo(wp);
@@ -674,5 +674,5 @@
     g.restore();
   }
 
-  window.NSV = { render, LOGO, setLogo(img) { LOGO.img = img; } };
+  window.NSV = { render, LOGO, setLogo(img) { LOGO.img = img; S.buildBack(img); } };
 })();

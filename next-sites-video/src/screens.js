@@ -493,8 +493,8 @@
     g.setTransform(1, 0, 0, 1, 0, 0);
     return phoneFace;
   }
-  (function buildBack() {
-    const g = phoneBack.getContext('2d'); g.setTransform(RES, 0, 0, RES, 0, 0);
+  function buildBack(img) {
+    const g = phoneBack.getContext('2d'); g.setTransform(RES, 0, 0, RES, 0, 0); g.clearRect(0, 0, PH.w, PH.h);
     const gr = g.createLinearGradient(0, 0, PH.w, PH.h);
     gr.addColorStop(0, '#16336E'); gr.addColorStop(0.5, '#0A1430'); gr.addColorStop(1, '#0057F1');
     g.fillStyle = gr; rr(g, 0, 0, PH.w, PH.h, PH.r); g.fill();
@@ -505,9 +505,11 @@
       g.strokeStyle = 'rgba(0,166,255,0.5)'; g.lineWidth = 3; g.stroke();
       g.fillStyle = 'rgba(0,166,255,0.35)'; g.beginPath(); g.arc(x - 6, y - 6, 7, 0, 7); g.fill();
     });
-    g.globalAlpha = 0.9; drawEmblemShape(g, PH.w / 2, PH.h / 2 + 40, 110);
+    g.globalAlpha = 0.95;
+    if (img) g.drawImage(img, PH.w / 2 - 60, PH.h / 2 - 20, 120, 120); else drawEmblemShape(g, PH.w / 2, PH.h / 2 + 40, 110);
     g.globalAlpha = 1;
-  })();
+  }
+  buildBack(null);
 
   /* tablet */
   const TB = { w: 560, h: 800, inset: 18, r: 40 };
@@ -565,6 +567,6 @@
   }
 
   window.NSS = {
-    PH, TB, LP, SITE_H, DESK_H, buildPhone, buildTablet, buildLaptop, phoneBack, drawEmblemShape, glare,
+    PH, TB, LP, SITE_H, DESK_H, buildPhone, buildTablet, buildLaptop, phoneBack, buildBack, drawEmblemShape, glare,
   };
 })();
